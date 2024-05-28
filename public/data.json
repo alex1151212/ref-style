@@ -1,0 +1,13 @@
+[{
+        "id": "m5gr84i9",
+        "bibtex": "@article{DBLP:journals/corr/abs-2106-00001,\n  author    = {Yann LeCun and\n               Yoshua Bengio and\n               Geoffrey E. Hinton},\n  title     = {Deep learning},\n  journal   = {CoRR},\n  volume    = {abs/2106.00001},\n  year      = {2021},\n  url       = {https://arxiv.org/abs/2106.00001},\n  archivePrefix = {arXiv},\n  eprint    = {2106.00001},\n  timestamp = {Tue, 08 Jun 2021 12:12:28 +0200},\n  biburl    = {https://dblp.org/rec/journals/corr/abs-2106-00001.bib},\n  bibsource = {dblp computer science bibliography, https://dblp.org}\n}"
+    },
+    {
+        "id": "3u1reuv4",
+        "bibtex": "@article{DBLP:journals/corr/abs-2106-00002,\n  author    = {Yann LeCun and\n               Yoshua Bengio and\n               Geoffrey E. Hinton},\n  title     = {Deep learning},\n  journal   = {CoRR},\n  volume    = {abs/2106.00002},\n  year      = {2021},\n  url       = {https://arxiv.org/abs/2106.00002},\n  archivePrefix = {arXiv},\n  eprint    = {2106.00002},\n  timestamp = {Tue, 08 Jun 2021 12:12:28 +0200},\n  biburl    = {https://dblp.org/rec/journals/corr/abs-2106-00002.bib},\n  bibsource = {dblp computer science bibliography, https://dblp.org}\n}"
+    },
+    {
+        "id": "derv1ws0",
+        "bibtex": "@article{DBLP:journals/corr/abs-2106-00003,\n  author   = {Yann LeCun and\n               Yoshua Bengio and\n               Geoffrey E. Hinton},\n  title     = {Deep learning},\n  journal   = {CoRR},\n  volume    = {abs/2106.00003},\n  year      = {2021},\n  url       = {https://arxiv.org/abs/2106.00003},\n  archivePrefix = {arXiv},\n  eprint    = {2106.00003},\n  timestamp = {Tue, 08 Jun 2021 12:12:28 +0200},\n  biburl    = {https://dblp.org/rec/journals/corr/abs-2106-00003.bib},\n  bibsource = {dblp computer science bibliography, https://dblp.org}\n}"
+    }
+]
