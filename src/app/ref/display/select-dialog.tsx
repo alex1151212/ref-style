@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,18 +16,23 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import React from "react";
 
+import { useRouter } from "next/navigation";
+
 interface props {}
 
 const SelectDialog: React.FC<props> = (props) => {
+  const router = useRouter();
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger
+        asChild
+        className="text-white bg-blue-600/100 hover:bg-blue-600/75"
+      >
         <Button variant="outline">Format</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -55,7 +62,14 @@ const SelectDialog: React.FC<props> = (props) => {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Submit</Button>
+          <Button
+            type="submit"
+            onClick={() => {
+              router.push("/ref/citation");
+            }}
+          >
+            Submit
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

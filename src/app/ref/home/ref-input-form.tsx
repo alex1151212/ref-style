@@ -16,9 +16,10 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
-  bio: z
+  ref: z
     .string()
     .min(10, {
       message: "Bio must be at least 10 characters.",
@@ -28,40 +29,44 @@ const FormSchema = z.object({
     }),
 });
 
-export function TextareaForm() {
+export function RefInputForm() {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    // TODO Submit API
     toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+      variant: "success",
+      title: "Submit Success",
+      description: "Please wait for the result.",
     });
+    router.push("/ref/display");
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col w-2/3 space-y-6 justify-center"
+      >
         <FormField
           control={form.control}
-          name="bio"
+          name="ref"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Bio</FormLabel>
+              <FormLabel className="text-2xl">Ref Input</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Tell us a little bit about yourself"
+                  placeholder="Input your reference here..."
                   className="resize-none"
                   {...field}
                 />
               </FormControl>
               <FormDescription>
-                You can <span>@mention</span> other users and organizations.
+                {/* You can <span>@mention</span> other users and organizations. */}
               </FormDescription>
               <FormMessage />
             </FormItem>

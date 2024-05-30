@@ -157,16 +157,15 @@ export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-4">
-        <Input
-          placeholder="Filter Title..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-        <div>
-          <SelectDialog />
+        <div className="flex gap-5">
+          <Input
+            placeholder="Filter Title..."
+            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("title")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
@@ -194,6 +193,8 @@ export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+
+        <SelectDialog />
       </div>
       <div className="rounded-md border">
         <Table>

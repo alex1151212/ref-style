@@ -1,3 +1,4 @@
+import { RefBreadcrumb } from "@/components/ref-breadcrumb";
 import { DataTable } from "./data-table";
 
 async function getData(): Promise<RefType[]> {
@@ -16,7 +17,7 @@ export default async function Page() {
 
   return (
     <div className="container mx-auto py-10">
-      {/* <TextareaForm /> */}
+      <RefBreadcrumb value={"display"} />
       <DataTable data={data} />
     </div>
   );
