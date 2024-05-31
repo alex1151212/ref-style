@@ -22,10 +22,14 @@ import {
 import React from "react";
 
 import { useRouter } from "next/navigation";
+import { generateBibliography } from "@/lib/utils";
 
-interface props {}
+interface props {
+  rowSelection: { [index: string]: boolean };
+  data: RefType[];
+}
 
-const SelectDialog: React.FC<props> = (props) => {
+const SelectDialog: React.FC<props> = ({ data, rowSelection }) => {
   const router = useRouter();
   return (
     <Dialog>
@@ -64,8 +68,20 @@ const SelectDialog: React.FC<props> = (props) => {
         <DialogFooter>
           <Button
             type="submit"
-            onClick={() => {
-              router.push("/ref/citation");
+            onClick={async () => {
+              const bibtexList = data
+                .filter((d, index) => {
+                  return rowSelection[index] == true;
+                })
+                .map((d) => d.bibtex);
+
+              for (const bibtex of bibtexList) {
+                await generateBibliography(bibtex, "apa");
+              }
+
+              // await generateBibliography(, "apa")
+
+              // router.push("/ref/citation");
             }}
           >
             Submit

@@ -154,6 +154,10 @@ export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
     },
   });
 
+  React.useEffect(() => {
+    console.log(Object.keys(rowSelection));
+  }, [rowSelection]);
+
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-4">
@@ -194,7 +198,7 @@ export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
           </DropdownMenu>
         </div>
 
-        <SelectDialog />
+        <SelectDialog data={localData} rowSelection={rowSelection} />
       </div>
       <div className="rounded-md border">
         <Table>

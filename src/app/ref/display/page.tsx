@@ -9,6 +9,11 @@ async function getData(): Promise<RefType[]> {
       bibtex:
         "@article{Bai2022MillionjsAF,title={Million.js: A Fast Compiler-Augmented Virtual DOM for the Web},author={Aiden Bai},journal={Proceedings of the 38th ACM/SIGAPP Symposium on Applied Computing},year={2022},url={https://api.semanticscholar.org/CorpusID:253107164%7D}}",
     },
+    {
+      id: "m51easf",
+      bibtex:
+        "@article{Bai2022MillionjsAF,title={Million.js: A Fast Compiler-Augmented Virtual DOM for the Web},author={Aiden Bai},journal={Proceedings of the 38th ACM/SIGAPP Symposium on Applied Computing},year={2022},url={https://api.semanticscholar.org/CorpusID:253107164%7D}}",
+    },
   ];
 }
 

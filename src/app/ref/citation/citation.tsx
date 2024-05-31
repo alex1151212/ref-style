@@ -19,7 +19,8 @@ const Page: React.FC<Props> = () => {
   const [formatSelected, setFormatSelected] = React.useState<string>("apa");
 
   const generateBibliography = async () => {
-    let cite = await Cite.async("10.1111/icad.12730");
+    let cite = new Cite("10.1111/icad.12730");
+    await cite.async();
     const bibliography = cite.format("bibliography", {
       format: "html",
       template: formatSelected,

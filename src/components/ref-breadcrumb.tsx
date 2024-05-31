@@ -47,13 +47,13 @@ export const RefBreadcrumb: React.FC<Props> = ({ value }) => {
     for (let i = 0; i <= itemIndex; i++) {
       if (i == itemIndex)
         buffer.push(
-          <BreadcrumbItem>
+          <BreadcrumbItem key={items[i].key}>
             <BreadcrumbPage>{items[i].name}</BreadcrumbPage>
           </BreadcrumbItem>
         );
       else {
         buffer.push(
-          <BreadcrumbItem>
+          <BreadcrumbItem key={items[i].key}>
             <BreadcrumbLink href={items[i].href}>
               {items[i].name}
             </BreadcrumbLink>
@@ -62,7 +62,7 @@ export const RefBreadcrumb: React.FC<Props> = ({ value }) => {
       }
       if (i !== itemIndex) {
         buffer.push(
-          <BreadcrumbSeparator>
+          <BreadcrumbSeparator key={`${items[i].key} separator`}>
             <Slash />
           </BreadcrumbSeparator>
         );
