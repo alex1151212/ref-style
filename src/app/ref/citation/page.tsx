@@ -1,14 +1,19 @@
 "use client";
+
+import { RefBreadcrumb } from "@/components/ref-breadcrumb";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { toast } from "@/components/ui/use-toast";
 import { ChevronsUpDown, Clipboard } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
   const [data, setData] = useState<string[]>([]);
 
@@ -16,25 +21,42 @@ export default function Page() {
     let data = [];
     try {
       data = JSON.parse(localStorage.getItem("data") || "");
-      console.log(data);
     } catch (error) {
       data = [];
-      // console.log(error);
     }
     return data;
+  };
+  const handleCopy = (text: string) => {
+    try {
+      navigator.clipboard.writeText(text);
+      toast({
+        variant: "success",
+        title: "Copy Success",
+        description: "The text has been copied to your clipboard.",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Copy Error",
+        description: "Failed to copy the text to your clipboard.",
+      });
+    }
   };
   const handleDisplay = (data: string[], type: "title" | "content") => {
     switch (type) {
       case "title":
         return (
           <div className="rounded-md border px-4 py-3 font-mono text-sm flex justify-between items-center">
-            <p>{data[0]}</p>
+            <div
+              className="flex-1"
+              dangerouslySetInnerHTML={{ __html: data[0] }}
+            />
             <Button
               variant="ghost"
               size="sm"
               className="w-9 p-0"
               onClick={() => {
-                navigator.clipboard.writeText(data[0]);
+                handleCopy(data[0]);
               }}
             >
               <Clipboard className="h-4 w-4" />
@@ -43,27 +65,56 @@ export default function Page() {
           </div>
         );
       case "content":
-        return data.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className="rounded-md border px-4 py-3 font-mono text-sm"
-            >
-              {item}
-            </div>
-          );
-        });
+        return data
+          .filter((_, index) => index != 0)
+          .map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="rounded-md border px-4 py-3 font-mono text-sm flex justify-between items-center"
+              >
+                <div
+                  className="flex-1"
+                  dangerouslySetInnerHTML={{ __html: item }}
+                />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-9 p-0"
+                  onClick={() => {
+                    handleCopy(data[index]);
+                  }}
+                >
+                  <Clipboard className="h-4 w-4" />
+                  <span className="sr-only">Copy</span>
+                </Button>
+              </div>
+            );
+          });
       default:
-        return data.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className="rounded-md border px-4 py-3 font-mono text-sm"
-            >
-              {item}
-            </div>
-          );
-        });
+        return data
+          .filter((_, index) => index != 0)
+          .map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="rounded-md border px-4 py-3 font-mono text-sm flex justify-between items-center"
+              >
+                <div dangerouslySetInnerHTML={{ __html: item }} />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-9 p-0"
+                  onClick={() => {
+                    handleCopy(data[index]);
+                  }}
+                >
+                  <Clipboard className="h-4 w-4" />
+                  <span className="sr-only">Copy</span>
+                </Button>
+              </div>
+            );
+          });
     }
   };
 
@@ -71,8 +122,10 @@ export default function Page() {
     setData(formatData());
   }, []);
 
+  if (localStorage.getItem("data") === null) router.push("/ref/home");
   return (
     <div className="container mx-auto py-10">
+      <RefBreadcrumb value="citation" />
       <Collapsible
         open={isOpen}
         onOpenChange={setIsOpen}
@@ -87,10 +140,10 @@ export default function Page() {
             </Button>
           </CollapsibleTrigger>
         </div>
-        {handleDisplay(formatData(), "title")}
+        {handleDisplay(data, "title")}
 
         <CollapsibleContent className="space-y-2">
-          {handleDisplay(formatData(), "content")}
+          {handleDisplay(data, "content")}
         </CollapsibleContent>
       </Collapsible>
     </div>

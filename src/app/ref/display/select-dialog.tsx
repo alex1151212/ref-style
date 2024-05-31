@@ -75,13 +75,14 @@ const SelectDialog: React.FC<props> = ({ data, rowSelection }) => {
                 })
                 .map((d) => d.bibtex);
 
+              const formatedData: string[] = [];
               for (const bibtex of bibtexList) {
-                await generateBibliography(bibtex, "apa");
+                formatedData.push(await generateBibliography(bibtex, "apa"));
               }
 
-              // await generateBibliography(, "apa")
+              localStorage.setItem("data", JSON.stringify(formatedData));
 
-              // router.push("/ref/citation");
+              router.push("/ref/citation");
             }}
           >
             Submit
