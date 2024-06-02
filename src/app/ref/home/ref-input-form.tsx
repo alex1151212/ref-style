@@ -17,7 +17,6 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { useCookies } from 'next-client-cookies';
 const FormSchema = z.object({
   ref: z.string().min(10, {
     message: "Bio must be at least 10 characters.",
@@ -26,7 +25,7 @@ const FormSchema = z.object({
 
 export function RefInputForm() {
   const router = useRouter();
-  const cookies = useCookies();
+  
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -41,7 +40,7 @@ export function RefInputForm() {
         },
       })
       .then((response) => {
-        cookies.set('response', response.data.result)
+        localStorage.setItem("response", response.data.result)
         router.push("/ref/display");
       })
       .catch((error) => {

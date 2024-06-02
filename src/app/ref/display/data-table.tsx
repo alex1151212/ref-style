@@ -38,6 +38,7 @@ import {
 import { PreviewDialog } from "./preview-dialog";
 import { useState } from "react";
 import SelectDialog from "./select-dialog";
+import { toast } from "@/components/ui/use-toast";
 
 export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
   const [localData, setLocalData] = useState<RefType[]>(
@@ -116,7 +117,15 @@ export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(refData.bibtex)}
+                onClick={() => {
+                  navigator.clipboard.writeText(refData.bibtex);
+                  toast({
+                    variant: "success",
+                    title: "Copied",
+                    description: "Copied to clipboard.",
+                  });
+
+                }}
               >
                 Copy BibTex
               </DropdownMenuItem>
@@ -155,8 +164,17 @@ export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
   });
 
   React.useEffect(() => {
-    console.log(Object.keys(rowSelection));
-  }, [rowSelection]);
+    setLocalData(
+      data.map((d) => {
+        const citation = new Cite(d.bibtex);
+        const bibtex = citation.get({ format: "real", type: "json" });
+        return {
+          ...d,
+          title: bibtex[0]["container-title"],
+        };
+      })
+    );
+  }, [data]);
 
   return (
     <div className="w-full">
