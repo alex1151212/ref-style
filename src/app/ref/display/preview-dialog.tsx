@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+"use client";
+import BibtexPreviewer from "@/components/bibtex-previewer";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import Cite from "citation-js";
-import BibtexPreviewer from "@/components/bibtex-previewer";
 
 interface Props {
   setOpen: (

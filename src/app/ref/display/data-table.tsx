@@ -40,17 +40,18 @@ import { useState } from "react";
 import SelectDialog from "./select-dialog";
 import { toast } from "@/components/ui/use-toast";
 
+const dataFormater = (data: RefType[]) =>
+  data.map((d) => {
+    const citation = new Cite(d.bibtex);
+    const bibtex = citation.get({ format: "real", type: "json" });
+    return {
+      ...d,
+      title: bibtex[0]["container-title"],
+    };
+  });
+
 export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
-  const [localData, setLocalData] = useState<RefType[]>(
-    data.map((d) => {
-      const citation = new Cite(d.bibtex);
-      const bibtex = citation.get({ format: "real", type: "json" });
-      return {
-        ...d,
-        title: bibtex[0]["container-title"],
-      };
-    })
-  );
+  const [localData, setLocalData] = useState<RefType[]>(dataFormater(data));
   const [selectedRow, setSelectedRow] = useState<RefType>();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -124,7 +125,6 @@ export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
                     title: "Copied",
                     description: "Copied to clipboard.",
                   });
-
                 }}
               >
                 Copy BibTex
@@ -164,16 +164,7 @@ export const DataTable: React.FC<{ data: RefType[] }> = ({ data }) => {
   });
 
   React.useEffect(() => {
-    setLocalData(
-      data.map((d) => {
-        const citation = new Cite(d.bibtex);
-        const bibtex = citation.get({ format: "real", type: "json" });
-        return {
-          ...d,
-          title: bibtex[0]["container-title"],
-        };
-      })
-    );
+    setLocalData(dataFormater(data));
   }, [data]);
 
   return (
