@@ -46,7 +46,7 @@ const dataFormater = (data: RefType[]) =>
     const bibtex = citation.get({ format: "real", type: "json" });
     return {
       ...d,
-      title: bibtex[0]["container-title"],
+      title: bibtex[0]["title"],
     };
   });
 
