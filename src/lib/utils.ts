@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const generateBibliography = async (value: string, template: string) => {
+export const generateBibliography = (value: string, template: string) => {
   // @ts-ignore
   let cite = new Cite(value);
   const bibliography = cite.format("bibliography", {
