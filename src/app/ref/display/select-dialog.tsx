@@ -31,6 +31,11 @@ interface props {
 
 const SelectDialog: React.FC<props> = ({ data, rowSelection }) => {
   const router = useRouter();
+
+  const [selectedFormat, setSelectedFormat] = React.useState<string>("apa");
+  const handleSelectValueChange = (value: string) => {
+    setSelectedFormat(value);
+  };
   return (
     <Dialog>
       <DialogTrigger
@@ -51,7 +56,7 @@ const SelectDialog: React.FC<props> = ({ data, rowSelection }) => {
             <Label htmlFor="name" className="text-right">
               Format
             </Label>
-            <Select>
+            <Select onValueChange={handleSelectValueChange}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select a format" />
               </SelectTrigger>
@@ -77,7 +82,9 @@ const SelectDialog: React.FC<props> = ({ data, rowSelection }) => {
 
               const formatedData: string[] = [];
               for (const bibtex of bibtexList) {
-                formatedData.push(await generateBibliography(bibtex, "apa"));
+                formatedData.push(
+                  await generateBibliography(bibtex, selectedFormat)
+                );
               }
 
               localStorage.setItem("data", JSON.stringify(formatedData));
