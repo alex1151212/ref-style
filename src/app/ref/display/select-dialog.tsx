@@ -81,6 +81,7 @@ const SelectDialog: React.FC<props> = ({ data, rowSelection }) => {
                 .map((d) => d.bibtex);
 
               const formatedData: string[] = [];
+
               for (const bibtex of bibtexList) {
                 formatedData.push(
                   await generateBibliography(bibtex, selectedFormat)

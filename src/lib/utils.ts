@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const generateBibliography = async (value: string, template: string) => {
   // @ts-ignore
-  let cite = await Cite.async(value);
+  let cite = new Cite(value);
   const bibliography = cite.format("bibliography", {
     format: "html",
     template: template,
