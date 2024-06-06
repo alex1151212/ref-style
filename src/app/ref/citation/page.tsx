@@ -20,28 +20,34 @@ export default function Page() {
   const formatData = (): string[] => {
     let data = [];
     try {
-      data = JSON.parse(localStorage.getItem("data") || "");
+      if (typeof window !== "undefined") {
+        data = JSON.parse(localStorage.getItem("data") || "[]");
+      }
     } catch (error) {
       data = [];
     }
     return data;
   };
+
   const handleCopy = (text: string) => {
-    try {
-      navigator.clipboard.writeText(text);
-      toast({
-        variant: "success",
-        title: "Copy Success",
-        description: "The text has been copied to your clipboard.",
-      });
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Copy Error",
-        description: "Failed to copy the text to your clipboard.",
-      });
+    if (typeof window !== "undefined") {
+      try {
+        navigator.clipboard.writeText(text);
+        toast({
+          variant: "success",
+          title: "Copy Success",
+          description: "The text has been copied to your clipboard.",
+        });
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Copy Error",
+          description: "Failed to copy the text to your clipboard.",
+        });
+      }
     }
   };
+
   const handleDisplay = (data: string[], type: "title" | "content") => {
     switch (type) {
       case "title":
@@ -117,12 +123,13 @@ export default function Page() {
           });
     }
   };
-
   useEffect(() => {
-    setData(formatData());
-  }, []);
-
-  if (localStorage.getItem("data") === null) router.push("/ref/home");
+    const storedData = formatData();
+    setData(storedData);
+    if (storedData.length === 0) {
+      router.push("/ref/home");
+    }
+  }, [router]);
   return (
     <div className="container mx-auto py-10">
       <RefBreadcrumb value="citation" />
